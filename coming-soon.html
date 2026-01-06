@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon - Watch Guard 24/7</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        h1, h2, h3, .brand-font {
+            font-family: 'Oswald', sans-serif;
+        }
+        /* Custom Background Pattern - Light Version */
+        .bg-grid {
+            background-image: linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+                              linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+            -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+        }
+        
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900 overflow-x-hidden flex flex-col relative selection:bg-blue-100 selection:text-blue-900">
+
+    <!-- Background Effects -->
+    <div class="fixed inset-0 bg-grid opacity-60 pointer-events-none z-0"></div>
+    <!-- Soft glowing orbs for visual interest -->
+    <div class="fixed top-0 right-0 w-1/2 h-full bg-blue-200/30 blur-[120px] rounded-full pointer-events-none mix-blend-multiply z-0"></div>
+    <div class="fixed bottom-0 left-0 w-1/2 h-full bg-indigo-200/30 blur-[120px] rounded-full pointer-events-none mix-blend-multiply z-0"></div>
+
+    <!-- Navigation (Minimal) -->
+    <nav class="relative z-20 w-full py-4 md:py-6">
+        <div class="container mx-auto px-4 flex justify-center md:justify-start">
+            <div class="flex items-center gap-3 group cursor-default">
+                <!-- Logo Image -->
+                <img src="logo.png" onerror="this.src='https://placehold.co/100x100/2563eb/ffffff.png?text=WG'" alt="Watch Guard Logo" class="w-10 h-10 rounded-lg object-contain shadow-lg shadow-blue-600/30 transition-transform group-hover:scale-105">
+                
+                <div>
+                    <h1 class="text-xl font-bold text-slate-900 leading-none tracking-tight">WATCH GUARD</h1>
+                    <p class="text-[10px] font-bold text-blue-600 tracking-[0.2em] uppercase">Security</p>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center relative z-10 px-4 py-8 md:py-12 w-full">
+        <div class="max-w-4xl w-full text-center space-y-8 md:space-y-10">
+            
+            <!-- Status Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-sm border border-slate-200 text-blue-600 text-xs md:text-sm font-bold shadow-sm animate-pulse-slow ring-1 ring-slate-100">
+                <span class="w-2 h-2 rounded-full bg-blue-600 animate-ping"></span>
+                <span>System Upgrade in Progress</span>
+            </div>
+
+            <!-- Hero Text -->
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-slate-900 leading-[1.1]">
+                SOMETHING <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">SECURE</span><br class="hidden sm:block"/>
+                IS COMING SOON.
+            </h1>
+            
+            <!-- Subtext -->
+            <p class="text-slate-600 text-base sm:text-lg md:text-xl max-w-xl mx-auto leading-relaxed px-2">
+                We are currently building a new digital fortress. Watch Guard's full intelligent surveillance platform will be live shortly.
+            </p>
+
+            <!-- Notification Area -->
+            <div class="max-w-md mx-auto mt-8 w-full relative min-h-[120px]">
+                
+                <!-- Success Message (Initially Hidden) -->
+                <div id="success-message" class="hidden absolute inset-0 bg-white/90 backdrop-blur-sm rounded-xl border border-green-200 shadow-lg flex-col items-center justify-center text-center p-6 z-20">
+                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-2">
+                        <i data-lucide="check" width="20"></i>
+                    </div>
+                    <h3 class="text-slate-900 font-bold text-lg">You're on the list!</h3>
+                    <p class="text-slate-600 text-sm">We'll notify you when we launch.</p>
+                </div>
+
+                <!-- Form -->
+                <div id="form-container" class="transition-opacity duration-300">
+                    <form id="notify-form" action="https://formspree.io/f/xjknqepl" method="POST" class="flex flex-col sm:flex-row gap-3 w-full">
+                        <input type="email" name="email" placeholder="Enter your email address" required 
+                            class="w-full sm:flex-grow px-5 py-3.5 rounded-lg bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all shadow-sm text-center sm:text-left disabled:opacity-50">
+                        <button type="submit" id="submit-btn" class="w-full sm:w-auto px-6 py-3.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold transition-all shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 group hover:-translate-y-0.5 active:scale-95 whitespace-nowrap disabled:opacity-70 disabled:cursor-not-allowed">
+                            <span>Notify Me</span> <i data-lucide="bell" width="18" class="group-hover:rotate-12 transition-transform"></i>
+                        </button>
+                    </form>
+                    <p class="text-xs text-slate-500 mt-3 font-medium">We promise not to spam. Security is our priority.</p>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="w-16 md:w-24 h-1 bg-slate-200 mx-auto rounded-full my-8 md:my-12"></div>
+
+            <!-- Direct Contact -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-w-2xl mx-auto text-left w-full">
+                
+                <!-- Phone Card -->
+                <div class="bg-white/80 backdrop-blur-sm p-5 md:p-6 rounded-xl border border-slate-200 shadow-lg shadow-slate-200/50 hover:border-blue-300 transition-all group flex items-start gap-4">
+                    <div class="shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                        <i data-lucide="phone" class="w-5 h-5 md:w-6 md:h-6"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <p class="text-[10px] md:text-xs text-slate-500 uppercase font-bold tracking-wider mb-1">Need Immediate Help?</p>
+                        <a href="tel:+919855546770" class="text-slate-900 font-bold hover:text-blue-600 transition-colors text-base md:text-lg font-mono block">+91 9855546770</a>
+                        <a href="tel:+919876100088" class="text-slate-900 font-bold hover:text-blue-600 transition-colors text-base md:text-lg font-mono block">+91 9876100088</a>
+                    </div>
+                </div>
+                
+                <!-- Address Card -->
+                <div class="bg-white/80 backdrop-blur-sm p-5 md:p-6 rounded-xl border border-slate-200 shadow-lg shadow-slate-200/50 hover:border-blue-300 transition-all group flex items-start gap-4">
+                    <div class="shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                        <i data-lucide="map-pin" class="w-5 h-5 md:w-6 md:h-6"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <p class="text-[10px] md:text-xs text-slate-500 uppercase font-bold tracking-wider mb-1">Visit Office</p>
+                        <p class="text-slate-900 font-bold text-sm md:text-lg leading-snug">Naushera Road, Palm Garden, Majitha, Amritsar, Punjab 143001</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-10 py-6 text-center text-slate-400 text-xs md:text-sm font-medium">
+        <div class="container mx-auto px-4">
+            <p>&copy; 2025 Watch Guard Security. All rights reserved.</p>
+            <br>
+             <h4 class=" text-black ">
+                    Built by <a href="https://yenoh.space/"><u>Yenoh</u></a>
+                </h4>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        lucide.createIcons();
+
+        // Handle Form Submission with AJAX
+        const form = document.getElementById("notify-form");
+        const successMessage = document.getElementById("success-message");
+        const formContainer = document.getElementById("form-container");
+        const submitBtn = document.getElementById("submit-btn");
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+            const data = new FormData(event.target);
+            
+            // Disable button during submission
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Sending...';
+
+            fetch(event.target.action, {
+                method: form.method,
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    // Success: Hide form, Show success message
+                    formContainer.classList.add("opacity-0", "pointer-events-none");
+                    successMessage.classList.remove("hidden");
+                    successMessage.classList.add("flex");
+                    
+                    // Create icons again for the new success message
+                    lucide.createIcons();
+                } else {
+                    response.json().then(data => {
+                        if (Object.hasOwn(data, 'errors')) {
+                            alert(data["errors"].map(error => error["message"]).join(", "));
+                        } else {
+                            alert("Oops! There was a problem submitting your form");
+                        }
+                    })
+                    // Re-enable button on error
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `Notify Me <i data-lucide="bell" width="18" class="ml-2 group-hover:rotate-12 transition-transform"></i>`;
+                    lucide.createIcons();
+                }
+            }).catch(error => {
+                alert("Oops! There was a problem submitting your form");
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `Notify Me <i data-lucide="bell" width="18" class="ml-2 group-hover:rotate-12 transition-transform"></i>`;
+                lucide.createIcons();
+            });
+        }
+        form.addEventListener("submit", handleSubmit);
+    </script>
+</body>
+</html>

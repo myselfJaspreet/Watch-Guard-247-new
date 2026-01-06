@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About & Technology - Watch Guard Security</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        
+        h1, h2, h3, .brand-font {
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .pattern-grid {
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        /* Animation Classes */
+        .reveal-item {
+            opacity: 0;
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-visible {
+            opacity: 1;
+            transform: translate(0, 0) !important;
+        }
+
+        .reveal-up { transform: translateY(40px); }
+
+        /* Nav Link Hover Animation - Enhanced Pill Effect */
+        .nav-link {
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #475569; /* slate-600 */
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+        
+        /* Apply hover effect on hover OR when parent group is hovered (for dropdown) OR when active */
+        .nav-link:hover,
+        .group:hover > .nav-link,
+        .nav-link.active {
+            background-color: #eff6ff; /* blue-50 */
+            color: #2563eb; /* blue-600 */
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15); /* Soft blue shadow */
+            transform: translateY(-1px); /* Subtle lift */
+        }
+        
+        .nav-link:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-800 selection:bg-blue-100 selection:text-blue-900 overflow-x-hidden">
+
+    <!-- Navigation (Sticky) -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-md border-b border-slate-100">
+        <div class="container mx-auto px-4 md:px-6 h-20 flex justify-between items-center relative z-50">
+            <!-- Logo -->
+             <a href="index.html" class="flex items-center gap-3 z-50 group no-underline">
+    <img src="logo.png" alt="Watch Guard Logo" class="w-12 h-12 object-contain filter drop-shadow-lg transform transition-transform group-hover:scale-110">
+    <div>
+        <h1 class="text-xl font-bold text-slate-900 leading-none tracking-tight">WATCH GUARD</h1>
+        <p class="text-[10px] font-bold text-blue-600 tracking-[0.2em] uppercase">24/7 Security</p>
+    </div>
+</a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-2 text-sm font-bold text-slate-600">
+                <a href="index.html" class="nav-link">Home</a>
+                
+                <!-- Services Dropdown -->
+                <div class="relative group h-20 flex items-center">
+                    <button class="nav-link flex items-center gap-1">
+                        Services
+                        <i data-lucide="chevron-down" width="16" class="transition-transform duration-300 group-hover:-rotate-180"></i>
+                    </button>
+                    
+                    <!-- Dropdown Panel -->
+                    <div class="absolute top-full -left-4 w-72 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                        <div class="bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden ring-1 ring-black/5">
+                            <div class="p-2 space-y-1">
+                                <a href="service-live-monitoring.html" class="block px-4 py-3 rounded-lg hover:bg-blue-50 transition-colors group/item">
+                                    <div class="flex items-center gap-3 mb-1">
+                                        <i data-lucide="eye" width="16" class="text-blue-600"></i>
+                                        <span class="font-bold text-slate-900 group-hover/item:text-blue-700">Live Video Monitoring</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500 pl-7">24/7 Real-time proactive surveillance</p>
+                                </a>
+                                <a href="service-industrial-perimeter.html" class="block px-4 py-3 rounded-lg hover:bg-blue-50 transition-colors group/item">
+                                    <div class="flex items-center gap-3 mb-1">
+                                        <i data-lucide="truck" width="16" class="text-blue-600"></i>
+                                        <span class="font-bold text-slate-900 group-hover/item:text-blue-700">Industrial Perimeter</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500 pl-7">Secure truck yards & factories</p>
+                                </a>
+                                <a href="service-remote-guarding.html" class="block px-4 py-3 rounded-lg hover:bg-blue-50 transition-colors group/item">
+                                    <div class="flex items-center gap-3 mb-1">
+                                        <i data-lucide="radio" width="16" class="text-blue-600"></i>
+                                        <span class="font-bold text-slate-900 group-hover/item:text-blue-700">Remote Guarding</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500 pl-7">Two-way audio intervention</p>
+                                </a>
+                                <a href="service-virtual-gate.html" class="block px-4 py-3 rounded-lg hover:bg-blue-50 transition-colors group/item">
+                                    <div class="flex items-center gap-3 mb-1">
+                                        <i data-lucide="boom-box" width="16" class="text-blue-600"></i>
+                                        <span class="font-bold text-slate-900 group-hover/item:text-blue-700">Virtual Gate Guard</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500 pl-7">Access control management</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="sectors.html" class="nav-link">Sectors</a>
+                <!-- Active Link -->
+                <a href="about.html" class="nav-link active">About</a>
+                
+                <a href="contact.html" class="bg-slate-900 hover:bg-blue-600 text-white px-6 py-2.5 rounded-lg font-bold transition-all shadow-lg flex items-center gap-2 hover:shadow-blue-600/20 transform hover:-translate-y-0.5 ml-4">
+                    <span>Request Quote</span>
+                    <i data-lucide="arrow-right" width="16"></i>
+                </a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+             <button id="mobile-menu-btn" class="md:hidden text-slate-900 p-2 relative z-50 hover:bg-slate-100 rounded-md transition-colors">
+                <i data-lucide="menu" width="28"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu Overlay (Moved outside of NAV to fix clipping) -->
+    <div id="mobile-menu" class="md:hidden fixed inset-0 bg-white z-40 transition-transform duration-300 ease-in-out translate-x-full overflow-y-auto">
+        <div class="flex flex-col items-center pt-24 pb-10 px-6 space-y-6 min-h-screen">
+            <a href="index.html" class="text-2xl font-bold text-slate-800 hover:text-blue-600 transition-colors" onclick="closeMenu()">Home</a>
+            
+            <!-- Mobile Services List -->
+            <div class="w-full bg-slate-50 rounded-2xl p-6 space-y-4 shadow-inner border border-slate-100">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest text-center mb-4">Our Services</p>
+                <a href="service-live-monitoring.html" onclick="closeMenu()" class="flex items-center justify-center gap-2 text-lg font-bold text-slate-700 hover:text-blue-600">
+                    <i data-lucide="eye" width="18"></i> Live Video Monitoring
+                </a>
+                <a href="service-industrial-perimeter.html" onclick="closeMenu()" class="flex items-center justify-center gap-2 text-lg font-bold text-slate-700 hover:text-blue-600">
+                    <i data-lucide="truck" width="18"></i> Industrial Perimeter
+                </a>
+                <a href="service-remote-guarding.html" onclick="closeMenu()" class="flex items-center justify-center gap-2 text-lg font-bold text-slate-700 hover:text-blue-600">
+                    <i data-lucide="radio" width="18"></i> Remote Guarding
+                </a>
+                <a href="service-virtual-gate.html" onclick="closeMenu()" class="flex items-center justify-center gap-2 text-lg font-bold text-slate-700 hover:text-blue-600">
+                    <i data-lucide="boom-box" width="18"></i> Virtual Gate Guard
+                </a>
+            </div>
+
+            <a href="sectors.html" class="text-2xl font-bold text-slate-800 hover:text-blue-600 transition-colors" onclick="closeMenu()">Sectors</a>
+            <a href="about.html" class="text-2xl font-bold text-blue-600" onclick="closeMenu()">About Us</a>
+            <a href="contact.html" class="w-full max-w-xs bg-blue-600 text-white text-center py-4 rounded-xl font-bold text-xl shadow-lg shadow-blue-600/30" onclick="closeMenu()">Contact Us</a>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <header class="pt-32 pb-20 bg-slate-900 text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-blue-600/10 pattern-grid opacity-10"></div>
+        <div class="container mx-auto px-4 md:px-6 relative z-10 text-center">
+            <span class="text-blue-400 font-bold tracking-widest uppercase text-xs mb-2 block">Who We Are</span>
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">WATCH GUARD SECURITY</h1>
+            <p class="text-slate-400 max-w-2xl mx-auto text-lg">
+                The leading provider of proactive video surveillance in Northern India. We combine human intelligence with cutting-edge AI.
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 md:px-6 py-16 space-y-24">
+        
+        <!-- Story/Mission -->
+        <section class="grid lg:grid-cols-2 gap-12 items-center">
+            <div class="reveal-item reveal-up">
+                <h2 class="text-3xl font-bold text-slate-900 mb-6">OUR MISSION: <br/><span class="text-blue-600">PREVENTION OVER REACTION</span></h2>
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                    Watch Guard was founded on a simple premise: traditional security systems are broken. Cameras just record crimes for later viewing, and physical guards are often unreliable or expensive.
+                </p>
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                    We set out to build a "Virtual Guarding" system that acts immediately. By merging advanced AI threat detection with a highly trained command center in Mohali, we offer a solution that stops criminals in their tracks—before they can steal or damage property.
+                </p>
+            </div>
+            <div class="reveal-item reveal-up relative">
+                 <div class="absolute -top-4 -left-4 w-24 h-24 bg-blue-100 rounded-full mix-blend-multiply filter blur-xl opacity-70"></div>
+                 <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-blue-600 rounded-full mix-blend-multiply filter blur-xl opacity-20"></div>
+                <img src="https://images.unsplash.com/photo-1577495508048-b635879837f1?q=80&w=2062&auto=format&fit=crop" class="relative rounded-2xl shadow-xl border-4 border-white" alt="Team Meeting">
+            </div>
+        </section>
+
+        <!-- The Problem -->
+        <section class="grid lg:grid-cols-2 gap-12 items-center">
+            <div class="reveal-item reveal-up relative order-2 lg:order-1">
+                <div class="absolute inset-0 bg-blue-600 rounded-2xl transform rotate-3 opacity-10"></div>
+                <img src="https://images.unsplash.com/photo-1555421689-d68471e189f2?q=80&w=2070&auto=format&fit=crop" class="relative rounded-2xl shadow-xl border-4 border-white" alt="Guard sleeping vs AI">
+            </div>
+            <div class="reveal-item reveal-up order-1 lg:order-2">
+                <h2 class="text-3xl font-bold text-slate-900 mb-6">THE PROBLEM WITH <br/><span class="text-red-600">TRADITIONAL GUARDS</span></h2>
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                    Physical security guards are expensive and human. They can only be in one place at a time, they get tired, they sleep during night shifts, and they can be intimidated by criminals.
+                </p>
+                <div class="space-y-4">
+                    <div class="flex items-start gap-3">
+                        <div class="bg-red-100 p-2 rounded text-red-600"><i data-lucide="x-circle" width="20"></i></div>
+                        <div>
+                            <h4 class="font-bold text-slate-900">Slow Reaction</h4>
+                            <p class="text-sm text-slate-500">Often, they only report the crime after it has happened.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="bg-red-100 p-2 rounded text-red-600"><i data-lucide="x-circle" width="20"></i></div>
+                        <div>
+                            <h4 class="font-bold text-slate-900">High Cost</h4>
+                            <p class="text-sm text-slate-500">Salary, insurance, and management costs add up quickly.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Section (How it Works) -->
+        <section class="bg-slate-50 rounded-3xl p-8 md:p-12 border border-slate-200">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-blue-600 font-bold tracking-widest uppercase text-xs mb-2 block">Our Technology</span>
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">HOW THE "VIRTUAL EYE" WORKS</h2>
+                <p class="text-slate-500">A seamless integration of hardware, software, and human intelligence.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 relative">
+                <!-- Connecting Line (Desktop) -->
+                <div class="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-slate-200 -z-0"></div>
+
+                <!-- Step 1 -->
+                <div class="reveal-item reveal-up relative z-10 text-center bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <div class="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6 border-4 border-white shadow-lg text-blue-600">
+                        <i data-lucide="scan-eye" width="40"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">1. AI Detection</h3>
+                    <p class="text-sm text-slate-500">The camera doesn't just record; it "sees." It distinguishes between a stray dog, a swaying tree, and a human climbing a fence. False alarms are filtered at the edge.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="reveal-item reveal-up relative z-10 text-center bg-white p-6 rounded-xl shadow-sm border border-slate-100" style="transition-delay: 200ms;">
+                    <div class="w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 border-4 border-white shadow-lg text-white animate-pulse">
+                        <i data-lucide="wifi" width="40"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">2. Encrypted Transmission</h3>
+                    <p class="text-sm text-slate-500">Upon detecting a threat, the footage is compressed and sent via secure, redundant internet lines (with cellular backup) to our Mohali Command Center.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="reveal-item reveal-up relative z-10 text-center bg-white p-6 rounded-xl shadow-sm border border-slate-100" style="transition-delay: 400ms;">
+                    <div class="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6 border-4 border-white shadow-lg text-blue-600">
+                        <i data-lucide="siren" width="40"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">3. Rapid Response</h3>
+                    <p class="text-sm text-slate-500">Our agents receive the alert in < 3 seconds. They use two-way audio to warn the intruder and dispatch local police with verified crime reports.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Command Center Focus -->
+        <section class="grid lg:grid-cols-2 gap-12 items-center">
+             <div class="reveal-item reveal-up relative lg:order-2">
+                <div class="absolute inset-0 bg-slate-900 rounded-2xl transform -rotate-2 opacity-10"></div>
+                <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=2070&auto=format&fit=crop" class="relative rounded-2xl shadow-xl border-4 border-white" alt="Mohali Command Center">
+            </div>
+            <div class="reveal-item reveal-up lg:order-1">
+                <h2 class="text-3xl font-bold text-slate-900 mb-6">THE AMRITSAR COMMAND CENTER</h2>
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                    Technology is nothing without human judgment. Our nerve center is located in JLPL Industrial Area, Mohali, and acts as the brain of our operation.
+                </p>
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="font-bold text-slate-900 mb-1">Local Expertise</h4>
+                        <p class="text-sm text-slate-500">Our agents speak Punjabi, Hindi, and English. They know the local geography and have direct lines to local SHO's (Station House Officers).</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 mb-1">Redundancy</h4>
+                        <p class="text-sm text-slate-500">We operate with backup power generators and dual-ISP internet connections to ensure we never go offline, even during power cuts.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 mb-1">Rigorous Training</h4>
+                        <p class="text-sm text-slate-500">Every agent undergoes 120 hours of specialized training in threat assessment, de-escalation, and emergency protocols.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+      
+
+        <!-- Tech Stack Grid -->
+        <section>
+             <h2 class="text-3xl font-bold text-slate-900 mb-8 text-center">TECHNOLOGY STACK</h2>
+             <div class="grid md:grid-cols-2 gap-8">
+                 <!-- Feature 1 -->
+                 <div class="reveal-item reveal-up flex gap-4 p-6 bg-white rounded-xl border border-slate-100 hover:shadow-lg transition-shadow">
+                     <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0 text-blue-600">
+                         <i data-lucide="brain-circuit" width="24"></i>
+                     </div>
+                     <div>
+                         <h3 class="text-xl font-bold text-slate-900 mb-2">Deep Learning AI</h3>
+                         <p class="text-sm text-slate-500">Our models are trained on millions of images to recognize specific threats like weapons, masks, or aggressive behavior.</p>
+                     </div>
+                 </div>
+
+                
+
+                 
+                 <!-- Feature 4 -->
+                 <div class="reveal-item reveal-up flex gap-4 p-6 bg-white rounded-xl border border-slate-100 hover:shadow-lg transition-shadow">
+                     <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0 text-blue-600">
+                         <i data-lucide="shield-alert" width="24"></i>
+                     </div>
+                     <div>
+                         <h3 class="text-xl font-bold text-slate-900 mb-2">Health Monitoring</h3>
+                         <p class="text-sm text-slate-500">We monitor your system's health 24/7. If a camera goes offline or a hard drive fails, we know instantly and dispatch a technician.</p>
+                     </div>
+                 </div>
+             </div>
+        </section>
+
+        <!-- Values -->
+        <section class="bg-slate-50 rounded-3xl p-8 md:p-12 border border-slate-200 mt-24">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">OUR CORE VALUES</h2>
+                <p class="text-slate-500">The principles that guide every decision we make.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div class="reveal-item reveal-up bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-600">
+                        <i data-lucide="shield-check" width="32"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Integrity</h3>
+                    <p class="text-sm text-slate-500">We operate with transparency. Our clients have full access to their footage and incident logs at all times.</p>
+                </div>
+                <div class="reveal-item reveal-up bg-white p-6 rounded-xl shadow-sm border border-slate-100" style="transition-delay: 150ms;">
+                    <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-600">
+                        <i data-lucide="zap" width="32"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Speed</h3>
+                    <p class="text-sm text-slate-500">In security, seconds matter. We are committed to maintaining an intervention time of under 30 seconds.</p>
+                </div>
+                <div class="reveal-item reveal-up bg-white p-6 rounded-xl shadow-sm border border-slate-100" style="transition-delay: 300ms;">
+                    <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-600">
+                        <i data-lucide="users" width="32"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Community</h3>
+                    <p class="text-sm text-slate-500">We are dedicated to making World safer. We work closely with local law enforcement to reduce crime rates in industrial zones.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- IMPROVED FOOTER -->
+    <footer class="bg-slate-900 text-slate-300 pt-20 pb-10 border-t border-slate-800">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
+                
+                <!-- Brand Info -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3">
+                        <img src="logo.png" alt="Watch Guard Logo" class="w-14 h-14 object-contain brightness-0 invert">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white leading-none tracking-tight">WATCH GUARD</h3>
+                            <p class="text-[10px] font-bold text-blue-500 tracking-[0.2em] uppercase">24/7 Surveillance</p>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-sm">
+                        World's premier AI-powered security solution. We provide proactive surveillance for industrial, commercial, and residential properties.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all transform hover:-translate-y-1"><i data-lucide="facebook" width="18"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all transform hover:-translate-y-1"><i data-lucide="instagram" width="18"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all transform hover:-translate-y-1"><i data-lucide="linkedin" width="18"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all transform hover:-translate-y-1"><i data-lucide="youtube" width="18"></i></a>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="lg:ml-auto">
+                    <h4 class="text-white font-bold uppercase tracking-widest text-sm mb-6 border-l-4 border-blue-600 pl-3">Explore</h4>
+                    <ul class="space-y-4 text-sm font-medium">
+                        <li><a href="#home" class="hover:text-blue-500 transition-colors flex items-center gap-2 group"><i data-lucide="chevron-right" width="14" class="text-blue-600 group-hover:translate-x-1 transition-transform"></i> Home</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition-colors flex items-center gap-2 group"><i data-lucide="chevron-right" width="14" class="text-blue-600 group-hover:translate-x-1 transition-transform"></i> Our Services</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition-colors flex items-center gap-2 group"><i data-lucide="chevron-right" width="14" class="text-blue-600 group-hover:translate-x-1 transition-transform"></i> Industries</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition-colors flex items-center gap-2 group"><i data-lucide="chevron-right" width="14" class="text-blue-600 group-hover:translate-x-1 transition-transform"></i> About Us</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition-colors flex items-center gap-2 group"><i data-lucide="chevron-right" width="14" class="text-blue-600 group-hover:translate-x-1 transition-transform"></i> Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services Focus -->
+                <div class="lg:ml-auto">
+                    <h4 class="text-white font-bold uppercase tracking-widest text-sm mb-6 border-l-4 border-blue-600 pl-3">Security Solutions</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="#" class="hover:text-blue-500 transition-colors">Live Video Monitoring</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition-colors">Industrial Perimeter Security</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition-colors">Virtual Gate Guarding</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition-colors">Remote Audio Intervention</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition-colors">AI Threat Classification</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact & Info -->
+                <div class="space-y-6">
+                    <h4 class="text-white font-bold uppercase tracking-widest text-sm mb-6 border-l-4 border-blue-600 pl-3">Contact Support</h4>
+                    <div class="space-y-4 text-sm">
+                        <div class="flex gap-3 group">
+                            <i data-lucide="phone" width="18" class="text-blue-500 flex-shrink-0"></i>
+                            <div>
+                                <p class="text-white font-bold">+91 98555 46770</p>
+                                <p class="text-slate-500 text-xs">24/7 Response Line</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <i data-lucide="mail" width="18" class="text-blue-500 flex-shrink-0"></i>
+                            <p class="text-slate-300 hover:text-white transition-colors cursor-pointer">info@watchguard-247.com</p>
+                        </div>
+                        <div class="flex gap-3">
+                            <i data-lucide="map-pin" width="18" class="text-blue-500 flex-shrink-0"></i>
+                            <p class="text-slate-400 leading-relaxed">Naushera Road, Palm Garden, Majitha, Amritsar, Punjab 143001</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+           
+
+            <!-- Footer Bottom -->
+            <div class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-center md:text-left space-y-2">
+                    <p class="text-xs text-slate-500 font-medium tracking-wide">
+                        &copy; 2025 WATCH GUARD 24/7 SECURITY SOLUTIONS. ALL RIGHTS RESERVED.
+                    </p>
+                    <p class="text-[10px] text-slate-600 uppercase tracking-[0.2em] font-bold">
+                        Designed for the safety.
+                    </p>
+                </div>
+
+                <!-- Premium Credit Link -->
+                <div class="flex items-center gap-4">
+                    <div class="h-8 w-px bg-slate-800 hidden md:block"></div>
+                    <div class="flex items-center gap-2 bg-slate-800/50 px-4 py-2 rounded-full border border-slate-800 hover:border-blue-900/50 transition-all group">
+                        <span class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter">Built by</span>
+                        <a href="https://yenoh.space/" target="_blank" class="text-white text-xs font-black tracking-widest flex items-center gap-1 group-hover:text-blue-400">
+                            YENOH <i data-lucide="arrow-up-right" width="12" class="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex gap-6 text-[10px] font-bold uppercase tracking-widest text-slate-600">
+                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms</a>
+                
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Global functions for menu
+        const toggleMenu = () => {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            
+            if (mobileMenu.classList.contains('translate-x-full')) {
+                // Open menu
+                mobileMenu.classList.remove('translate-x-full');
+                mobileMenu.classList.add('translate-x-0');
+                // Change icon to X
+                mobileMenuBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            } else {
+                // Close menu
+                mobileMenu.classList.add('translate-x-full');
+                mobileMenu.classList.remove('translate-x-0');
+                // Change icon back to Menu
+                mobileMenuBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>';
+                document.body.style.overflow = 'auto'; // Restore scrolling
+            }
+        };
+
+        const closeMenu = () => {
+             const mobileMenu = document.getElementById('mobile-menu');
+             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+             
+             mobileMenu.classList.add('translate-x-full');
+             mobileMenu.classList.remove('translate-x-0');
+             mobileMenuBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>';
+             document.body.style.overflow = 'auto';
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            
+            // Attach toggle to button
+            document.getElementById('mobile-menu-btn').addEventListener('click', toggleMenu);
+            
+            // Scroll Animation Logic
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal-item').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Video Monitoring - Watch Guard Security</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        
+        h1, h2, h3, .brand-font {
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .pattern-grid {
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        /* Animation Classes */
+        .reveal-item {
+            opacity: 0;
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-visible {
+            opacity: 1;
+            transform: translate(0, 0) !important;
+        }
+
+        .reveal-up { transform: translateY(40px); }
+
+        /* FAQ Transition */
+        .faq-content {
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+        .faq-open .faq-content {
+            max-height: 500px; /* ample height for content */
+            opacity: 1;
+        }
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+        .faq-open .faq-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* Nav Link Hover Animation - Enhanced Pill Effect */
+        .nav-link {
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #475569; /* slate-600 */
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+        
+        /* Apply hover effect on hover OR when parent group is hovered (for dropdown) OR when active */
+        .nav-link:hover,
+        .group:hover > .nav-link,
+        .nav-link.active {
+            background-color: #eff6ff; /* blue-50 */
+            color: #2563eb; /* blue-600 */
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15); /* Soft blue shadow */
+            transform: translateY(-1px); /* Subtle lift */
+        }
+        
+        .nav-link:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-800 selection:bg-blue-100 selection:text-blue-900 overflow-x-hidden">
+
+    <!-- Navigation (Sticky) -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-md border-b border-slate-100">
+        <div class="container mx-auto px-4 md:px-6 h-20 flex justify-between items-center relative z-50">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center gap-3 z-50 group no-underline">
+    <img src="logo.png" alt="Watch Guard Logo" class="w-12 h-12 object-contain filter drop-shadow-lg transform transition-transform group-hover:scale-110">
+    <div>
+        <h1 class="text-xl font-bold text-slate-900 leading-none tracking-tight">WATCH GUARD</h1>
+        <p class="text-[10px] font-bold text-blue-600 tracking-[0.2em] uppercase">24/7 Security</p>
+    </div>
+</a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-2 text-sm font-bold text-slate-600">
+                <a href="index.html" class="nav-link">Home</a>
+                
+                <!-- Services Dropdown -->
+                <div class="relative group h-20 flex items-center">
+                    <!-- Added 'active' class here since this page is a Service -->
+                    <button class="nav-link active flex items-center gap-1">
+                        Services
+                        <i data-lucide="chevron-down" width="16" class="transition-transform duration-300 group-hover:-rotate-180"></i>
+                    </button>
+                    
+                    <!-- Dropdown Panel -->
+                    <div class="absolute top-full -left-4 w-72 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                        <div class="bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden ring-1 ring-black/5">
+                            <div class="p-2 space-y-1">
+                                <a href="service-live-monitoring.html" class="block px-4 py-3 rounded-lg hover:bg-blue-50 transition-colors group/item">
+                                    <div class="flex items-center gap-3 mb-1">
+                                        <i data-lucide="eye" width="16" class="text-blue-600"></i>
+                                        <span class="font-bold text-slate-900 group-hover/item:text-blue-700">Live Video Monitoring</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500 pl-7">24/7 Real-time proactive surveillance</p>
+                                </a>
+                                <a href="service-industrial-perimeter.html" class="block px-4 py-3 rounded-lg hover:bg-blue-50 transition-colors group/item">
+                                    <div class="flex items-center gap-3 mb-1">
+                                        <i data-lucide="truck" width="16" class="text-blue-600"></i>
+                                        <span class="font-bold text-slate-900 group-hover/item:text-blue-700">Industrial Perimeter</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500 pl-7">Secure truck yards & factories</p>
+                                </a>
+                                <a href="service-remote-guarding.html" class="block px-4 py-3 rounded-lg hover:bg-blue-50 transition-colors group/item">
+                                    <div class="flex items-center gap-3 mb-1">
+                                        <i data-lucide="radio" width="16" class="text-blue-600"></i>
+                                        <span class="font-bold text-slate-900 group-hover/item:text-blue-700">Remote Guarding</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500 pl-7">Two-way audio intervention</p>
+                                </a>
+                                <a href="service-virtual-gate.html" class="block px-4 py-3 rounded-lg hover:bg-blue-50 transition-colors group/item">
+                                    <div class="flex items-center gap-3 mb-1">
+                                        <i data-lucide="boom-box" width="16" class="text-blue-600"></i>
+                                        <span class="font-bold text-slate-900 group-hover/item:text-blue-700">Virtual Gate Guard</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500 pl-7">Access control management</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="sectors.html" class="nav-link">Sectors</a>
+                <a href="about.html" class="nav-link">About</a>
+                
+                <a href="contact.html" class="bg-slate-900 hover:bg-blue-600 text-white px-6 py-2.5 rounded-lg font-bold transition-all shadow-lg flex items-center gap-2 hover:shadow-blue-600/20 transform hover:-translate-y-0.5 ml-4">
+                    <span>Request Quote</span>
+                    <i data-lucide="arrow-right" width="16"></i>
+                </a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+             <button id="mobile-menu-btn" class="md:hidden text-slate-900 z-50 p-2 relative hover:bg-slate-100 rounded-md transition-colors">
+                <i data-lucide="menu" width="28"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu Overlay (Moved outside of NAV to fix clipping) -->
+    <div id="mobile-menu" class="md:hidden fixed inset-0 bg-white z-40 transition-transform duration-300 ease-in-out translate-x-full overflow-y-auto">
+        <div class="flex flex-col items-center pt-24 pb-10 px-6 space-y-6 min-h-screen">
+            <a href="index.html" class="text-2xl font-bold text-slate-800 hover:text-blue-600 transition-colors" onclick="closeMenu()">Home</a>
+            
+            <!-- Mobile Services List -->
+            <div class="w-full bg-slate-50 rounded-2xl p-6 space-y-4 shadow-inner border border-slate-100">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest text-center mb-4">Our Services</p>
+                <a href="service-live-monitoring.html" onclick="closeMenu()" class="flex items-center justify-center gap-2 text-lg font-bold text-slate-700 hover:text-blue-600">
+                    <i data-lucide="eye" width="18"></i> Live Video Monitoring
+                </a>
+                <a href="service-industrial-perimeter.html" onclick="closeMenu()" class="flex items-center justify-center gap-2 text-lg font-bold text-slate-700 hover:text-blue-600">
+                    <i data-lucide="truck" width="18"></i> Industrial Perimeter
+                </a>
+                <a href="service-remote-guarding.html" onclick="closeMenu()" class="flex items-center justify-center gap-2 text-lg font-bold text-slate-700 hover:text-blue-600">
+                    <i data-lucide="radio" width="18"></i> Remote Guarding
+                </a>
+                <a href="service-virtual-gate.html" onclick="closeMenu()" class="flex items-center justify-center gap-2 text-lg font-bold text-slate-700 hover:text-blue-600">
+                    <i data-lucide="boom-box" width="18"></i> Virtual Gate Guard
+                </a>
+            </div>
+
+            <a href="sectors.html" class="text-2xl font-bold text-slate-800 hover:text-blue-600 transition-colors" onclick="closeMenu()">Sectors</a>
+            <a href="about.html" class="text-2xl font-bold text-slate-800 hover:text-blue-600 transition-colors" onclick="closeMenu()">About Us</a>
+            <a href="contact.html" class="w-full max-w-xs bg-blue-600 text-white text-center py-4 rounded-xl font-bold text-xl shadow-lg shadow-blue-600/30" onclick="closeMenu()">Contact Us</a>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <header class="pt-32 pb-20 bg-slate-900 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/90 to-transparent"></div>
+        <div class="absolute inset-0 bg-blue-600/10 pattern-grid opacity-10"></div>
+        
+        <div class="container mx-auto px-4 md:px-6 relative z-10">
+            <a href="services.html" class="inline-flex items-center gap-2 text-blue-400 font-bold text-sm mb-6 hover:text-white transition-colors group">
+                <i data-lucide="arrow-left" width="16" class="group-hover:-translate-x-1 transition-transform"></i> Back to Catalog
+            </a>
+            <span class="text-blue-400 font-bold tracking-widest uppercase text-xs mb-2 block">Our Flagship Solution</span>
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">LIVE VIDEO MONITORING</h1>
+            <p class="text-slate-400 max-w-2xl text-lg leading-relaxed">
+                Turn your passive CCTV cameras into a proactive crime-fighting tool. Our intelligent analytics and human operators watch your property in real-time, intervening the moment a threat is detected.
+            </p>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <main class="container mx-auto px-4 md:px-6 py-16">
+        <div class="grid lg:grid-cols-3 gap-12">
+            
+            <!-- Main Details -->
+            <div class="lg:col-span-2 space-y-12">
+                
+                <!-- How It Works -->
+                <section class="reveal-item reveal-up">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-6">How It Works</h2>
+                    <p class="text-slate-600 mb-8 leading-relaxed">
+                        Traditional CCTV is reactive—you only look at the footage after a theft has occurred. Live Video Monitoring is <strong>proactive</strong>. We connect your cameras to our Mohali Command Center using secure internet protocols.
+                    </p>
+                    
+                    <div class="space-y-8 relative">
+                        <!-- Connector Line -->
+                        <div class="absolute left-6 top-4 bottom-4 w-0.5 bg-slate-200"></div>
+
+                        <div class="flex gap-6 relative">
+                            <div class="w-12 h-12 bg-white border-4 border-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-xl flex-shrink-0 z-10 shadow-sm">1</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 mb-2">Intelligent Detection</h3>
+                                <p class="text-slate-500 text-sm leading-relaxed">Advanced analytics scan video feeds 24/7 for specific threats: people, vehicles, or weapons. Movements like swaying trees, rain, or stray animals are automatically filtered out.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-6 relative">
+                            <div class="w-12 h-12 bg-white border-4 border-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-xl flex-shrink-0 z-10 shadow-sm">2</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 mb-2">Human Verification</h3>
+                                <p class="text-slate-500 text-sm leading-relaxed">When the system flags a threat, the live video feed pops up on a priority screen in our Command Center. A trained operator verifies within seconds if it is a real crime in progress.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-6 relative">
+                            <div class="w-12 h-12 bg-blue-600 border-4 border-blue-200 rounded-full flex items-center justify-center text-white font-bold text-xl flex-shrink-0 z-10 shadow-lg animate-pulse">3</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 mb-2">Immediate Action</h3>
+                                <p class="text-slate-500 text-sm leading-relaxed">We activate on-site sirens, issue stern audio warnings via loudspeakers ("Leave the premises immediately!"), and dispatch local police with a verified crime report.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Cost Comparison -->
+                <section class="reveal-item reveal-up bg-slate-50 p-8 rounded-2xl border border-slate-200">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">The Economics: Smart Tech vs. Guards</h2>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Physical Guards -->
+                        <div class="bg-white p-6 rounded-xl border border-red-100 shadow-sm relative overflow-hidden group hover:border-red-200 transition-colors">
+                            <div class="absolute top-0 right-0 w-16 h-16 bg-red-50 rounded-bl-full -mr-8 -mt-8"></div>
+                            <h3 class="font-bold text-red-600 mb-4 flex items-center gap-2"><i data-lucide="user-x" width="20"></i> Physical Guards</h3>
+                            <ul class="space-y-3 text-sm text-slate-600 mb-6">
+                                <li class="flex items-center gap-2"><span class="text-red-500 font-bold">×</span> Can sleep or be distracted</li>
+                                <li class="flex items-center gap-2"><span class="text-red-500 font-bold">×</span> Can be intimidated/bribed</li>
+                                <li class="flex items-center gap-2"><span class="text-red-500 font-bold">×</span> Limited field of view</li>
+                                <li class="flex items-center gap-2"><span class="text-red-500 font-bold">×</span> High recurring salary cost</li>
+                            </ul>
+                            <div class="pt-4 border-t border-slate-100">
+                                <p class="text-xs text-slate-400 uppercase font-bold">Estimated Cost</p>
+                                <p class="text-xl font-bold text-slate-900">High Monthly Expense <span class="text-sm font-normal text-slate-500">/ guard</span></p>
+                            </div>
+                        </div>
+
+                        <!-- Watch Guard Tech -->
+                        <div class="bg-white p-6 rounded-xl border border-green-100 shadow-sm relative overflow-hidden group hover:border-green-200 transition-colors">
+                            <div class="absolute top-0 right-0 w-16 h-16 bg-green-50 rounded-bl-full -mr-8 -mt-8"></div>
+                            <h3 class="font-bold text-green-600 mb-4 flex items-center gap-2"><i data-lucide="shield-check" width="20"></i> Watch Guard Tech</h3>
+                            <ul class="space-y-3 text-sm text-slate-600 mb-6">
+                                <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Never sleeps, 24/7 alert</li>
+                                <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Cannot be bribed or hurt</li>
+                                <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Sees everywhere at once</li>
+                                <li class="flex items-center gap-2"><span class="text-green-500 font-bold">✓</span> Significant cost savings</li>
+                            </ul>
+                            <div class="pt-4 border-t border-slate-100">
+                                <p class="text-xs text-slate-400 uppercase font-bold">Estimated Cost</p>
+                                <a href="contact.html" class="text-xl font-bold text-blue-600 hover:text-blue-800 transition-colors inline-flex items-center gap-1">Request Audit <i data-lucide="arrow-right" width="16"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Sector Applications -->
+                <section class="reveal-item reveal-up">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-6">Where We Use It</h2>
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div class="p-5 border border-slate-200 rounded-xl hover:border-blue-300 hover:bg-blue-50/50 transition-all group">
+                            <h4 class="font-bold text-slate-900 mb-2 flex items-center gap-2 group-hover:text-blue-600">
+                                <i data-lucide="shopping-bag" class="text-blue-500" width="18"></i> Retail & Malls
+                            </h4>
+                            <p class="text-sm text-slate-500">Prevents shoplifting and monitors staff performance. Overnight monitoring protects storefront glass and inventory.</p>
+                        </div>
+                        <div class="p-5 border border-slate-200 rounded-xl hover:border-blue-300 hover:bg-blue-50/50 transition-all group">
+                            <h4 class="font-bold text-slate-900 mb-2 flex items-center gap-2 group-hover:text-blue-600">
+                                <i data-lucide="hard-hat" class="text-blue-500" width="18"></i> Construction
+                            </h4>
+                            <p class="text-sm text-slate-500">Protects tools, copper wire, and heavy machinery left on-site. Mobile solar units available for sites without power.</p>
+                        </div>
+                        <div class="p-5 border border-slate-200 rounded-xl hover:border-blue-300 hover:bg-blue-50/50 transition-all group">
+                            <h4 class="font-bold text-slate-900 mb-2 flex items-center gap-2 group-hover:text-blue-600">
+                                <i data-lucide="car" class="text-blue-500" width="18"></i> Auto Lots
+                            </h4>
+                            <p class="text-sm text-slate-500">Prevents catalytic converter theft and vandalism of inventory. High-res cameras capture license plates of suspicious vehicles.</p>
+                        </div>
+                        <div class="p-5 border border-slate-200 rounded-xl hover:border-blue-300 hover:bg-blue-50/50 transition-all group">
+                            <h4 class="font-bold text-slate-900 mb-2 flex items-center gap-2 group-hover:text-blue-600">
+                                <i data-lucide="building" class="text-blue-500" width="18"></i> Office Parks
+                            </h4>
+                            <p class="text-sm text-slate-500">Escorts employees virtually to their cars late at night and ensures perimeter doors remain locked.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section class="reveal-item reveal-up">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-6">Frequently Asked Questions</h2>
+                    <div class="space-y-4">
+                        <!-- FAQ Item 1 -->
+                        <div class="bg-white border border-slate-200 rounded-lg overflow-hidden shadow-sm faq-item">
+                            <button class="w-full flex items-center justify-between p-5 text-left focus:outline-none" onclick="toggleFaq(this)">
+                                <h4 class="font-bold text-slate-900">Do I need to replace my existing cameras?</h4>
+                                <i data-lucide="chevron-down" class="text-slate-400 faq-icon transition-transform duration-300"></i>
+                            </button>
+                            <div class="faq-content bg-slate-50 px-5 pb-5">
+                                <div class="pt-2 text-slate-500 text-sm border-t border-slate-200">
+                                    Usually, no. Watch Guard is compatible with 95% of modern IP camera systems (Hikvision, Dahua, Axis, etc.). We simply install a secure gateway box to bridge your system to our cloud.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 2 -->
+                        <div class="bg-white border border-slate-200 rounded-lg overflow-hidden shadow-sm faq-item">
+                            <button class="w-full flex items-center justify-between p-5 text-left focus:outline-none" onclick="toggleFaq(this)">
+                                <h4 class="font-bold text-slate-900">What happens if the internet goes down?</h4>
+                                <i data-lucide="chevron-down" class="text-slate-400 faq-icon transition-transform duration-300"></i>
+                            </button>
+                            <div class="faq-content bg-slate-50 px-5 pb-5">
+                                <div class="pt-2 text-slate-500 text-sm border-t border-slate-200">
+                                    Our systems include local recording backup on the NVR. For high-security sites, we recommend and can install 4G/5G cellular backup routers to ensure we never lose connection.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 3 -->
+                        <div class="bg-white border border-slate-200 rounded-lg overflow-hidden shadow-sm faq-item">
+                            <button class="w-full flex items-center justify-between p-5 text-left focus:outline-none" onclick="toggleFaq(this)">
+                                <h4 class="font-bold text-slate-900">Can you monitor only at specific times?</h4>
+                                <i data-lucide="chevron-down" class="text-slate-400 faq-icon transition-transform duration-300"></i>
+                            </button>
+                            <div class="faq-content bg-slate-50 px-5 pb-5">
+                                <div class="pt-2 text-slate-500 text-sm border-t border-slate-200">
+                                    Yes. We tailor the schedule to your needs—typically overnight (8 PM - 8 AM), weekends, and holidays. We can also provide 24/7 coverage for high-risk zones.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar CTA -->
+            <div class="lg:col-span-1">
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 sticky top-28 shadow-lg">
+                    <h3 class="text-xl font-bold text-slate-900 mb-4">Service Highlights</h3>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="check" class="text-green-500 flex-shrink-0" width="16"></i> 24/7/365 Coverage</li>
+                        <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="check" class="text-green-500 flex-shrink-0" width="16"></i> < 30s Response Time</li>
+                        <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="check" class="text-green-500 flex-shrink-0" width="16"></i> Daily Activity Reports</li>
+                        <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="check" class="text-green-500 flex-shrink-0" width="16"></i> Save 60% vs Guards</li>
+                        <li class="flex items-center gap-2 text-sm text-slate-600"><i data-lucide="check" class="text-green-500 flex-shrink-0" width="16"></i> Police Priority Dispatch</li>
+                    </ul>
+                    <div class="bg-white p-4 rounded-xl border border-slate-100 mb-6">
+                        <p class="text-xs font-bold text-slate-400 uppercase mb-2">Best For Industries</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-50 text-blue-600 px-2 py-1 rounded text-xs font-bold border border-blue-100">Construction</span>
+                            <span class="bg-blue-50 text-blue-600 px-2 py-1 rounded text-xs font-bold border border-blue-100">Retail</span>
+                            <span class="bg-blue-50 text-blue-600 px-2 py-1 rounded text-xs font-bold border border-blue-100">Logistics</span>
+                        </div>
+                    </div>
+                    <a href="contact.html" class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-lg transition-all text-center shadow-lg shadow-blue-600/30 transform hover:-translate-y-1">
+                        Request Site Audit
+                    </a>
+                    <p class="text-xs text-center text-slate-400 mt-3"><i data-lucide="lock" width="12" class="inline mb-0.5"></i> No obligation, free quote.</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+<!-- IMPROVED FOOTER -->
+    <footer class="bg-slate-900 text-slate-300 pt-20 pb-10 border-t border-slate-800">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
+                
+                <!-- Brand Info -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3">
+                        <img src="logo.png" alt="Watch Guard Logo" class="w-14 h-14 object-contain brightness-0 invert">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white leading-none tracking-tight">WATCH GUARD</h3>
+                            <p class="text-[10px] font-bold text-blue-500 tracking-[0.2em] uppercase">24/7 Surveillance</p>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-sm">
+                        World's premier AI-powered security solution. We provide proactive surveillance for industrial, commercial, and residential properties.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all transform hover:-translate-y-1"><i data-lucide="facebook" width="18"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all transform hover:-translate-y-1"><i data-lucide="instagram" width="18"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all transform hover:-translate-y-1"><i data-lucide="linkedin" width="18"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all transform hover:-translate-y-1"><i data-lucide="youtube" width="18"></i></a>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="lg:ml-auto">
+                    <h4 class="text-white font-bold uppercase tracking-widest text-sm mb-6 border-l-4 border-blue-600 pl-3">Explore</h4>
+                    <ul class="space-y-4 text-sm font-medium">
+                        <li><a href="#home" class="hover:text-blue-500 transition-colors flex items-center gap-2 group"><i data-lucide="chevron-right" width="14" class="text-blue-600 group-hover:translate-x-1 transition-transform"></i> Home</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition-colors flex items-center gap-2 group"><i data-lucide="chevron-right" width="14" class="text-blue-600 group-hover:translate-x-1 transition-transform"></i> Our Services</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition-colors flex items-center gap-2 group"><i data-lucide="chevron-right" width="14" class="text-blue-600 group-hover:translate-x-1 transition-transform"></i> Industries</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition-colors flex items-center gap-2 group"><i data-lucide="chevron-right" width="14" class="text-blue-600 group-hover:translate-x-1 transition-transform"></i> About Us</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition-colors flex items-center gap-2 group"><i data-lucide="chevron-right" width="14" class="text-blue-600 group-hover:translate-x-1 transition-transform"></i> Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services Focus -->
+                <div class="lg:ml-auto">
+                    <h4 class="text-white font-bold uppercase tracking-widest text-sm mb-6 border-l-4 border-blue-600 pl-3">Security Solutions</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="#" class="hover:text-blue-500 transition-colors">Live Video Monitoring</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition-colors">Industrial Perimeter Security</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition-colors">Virtual Gate Guarding</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition-colors">Remote Audio Intervention</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition-colors">AI Threat Classification</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact & Info -->
+                <div class="space-y-6">
+                    <h4 class="text-white font-bold uppercase tracking-widest text-sm mb-6 border-l-4 border-blue-600 pl-3">Contact Support</h4>
+                    <div class="space-y-4 text-sm">
+                        <div class="flex gap-3 group">
+                            <i data-lucide="phone" width="18" class="text-blue-500 flex-shrink-0"></i>
+                            <div>
+                                <p class="text-white font-bold">+91 98555 46770</p>
+                                <p class="text-slate-500 text-xs">24/7 Response Line</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <i data-lucide="mail" width="18" class="text-blue-500 flex-shrink-0"></i>
+                            <p class="text-slate-300 hover:text-white transition-colors cursor-pointer">info@watchguard-247.com</p>
+                        </div>
+                        <div class="flex gap-3">
+                            <i data-lucide="map-pin" width="18" class="text-blue-500 flex-shrink-0"></i>
+                            <p class="text-slate-400 leading-relaxed">Naushera Road, Palm Garden, Majitha, Amritsar, Punjab 143001</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+           
+
+            <!-- Footer Bottom -->
+            <div class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-center md:text-left space-y-2">
+                    <p class="text-xs text-slate-500 font-medium tracking-wide">
+                        &copy; 2025 WATCH GUARD 24/7 SECURITY SOLUTIONS. ALL RIGHTS RESERVED.
+                    </p>
+                    <p class="text-[10px] text-slate-600 uppercase tracking-[0.2em] font-bold">
+                        Designed for the safety.
+                    </p>
+                </div>
+
+                <!-- Premium Credit Link -->
+                <div class="flex items-center gap-4">
+                    <div class="h-8 w-px bg-slate-800 hidden md:block"></div>
+                    <div class="flex items-center gap-2 bg-slate-800/50 px-4 py-2 rounded-full border border-slate-800 hover:border-blue-900/50 transition-all group">
+                        <span class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter">Built by</span>
+                        <a href="https://yenoh.space/" target="_blank" class="text-white text-xs font-black tracking-widest flex items-center gap-1 group-hover:text-blue-400">
+                            YENOH <i data-lucide="arrow-up-right" width="12" class="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex gap-6 text-[10px] font-bold uppercase tracking-widest text-slate-600">
+                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms</a>
+                
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Scripts -->
+    <script>
+        // Global functions for menu
+        const toggleMenu = () => {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            
+            if (mobileMenu.classList.contains('translate-x-full')) {
+                // Open menu
+                mobileMenu.classList.remove('translate-x-full');
+                mobileMenu.classList.add('translate-x-0');
+                // Change icon to X
+                mobileMenuBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            } else {
+                // Close menu
+                mobileMenu.classList.add('translate-x-full');
+                mobileMenu.classList.remove('translate-x-0');
+                // Change icon back to Menu
+                mobileMenuBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>';
+                document.body.style.overflow = 'auto'; // Restore scrolling
+            }
+        };
+
+        const closeMenu = () => {
+             const mobileMenu = document.getElementById('mobile-menu');
+             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+             
+             mobileMenu.classList.add('translate-x-full');
+             mobileMenu.classList.remove('translate-x-0');
+             mobileMenuBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>';
+             document.body.style.overflow = 'auto';
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            
+            // Attach toggle to button
+            document.getElementById('mobile-menu-btn').addEventListener('click', toggleMenu);
+            
+            // Scroll Animation
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            document.querySelectorAll('.reveal-item').forEach(el => observer.observe(el));
+
+            // FAQ Logic
+            window.toggleFaq = function(button) {
+                const item = button.closest('.faq-item');
+                const wasOpen = item.classList.contains('faq-open');
+                
+                // Close all others
+                document.querySelectorAll('.faq-item').forEach(el => {
+                    el.classList.remove('faq-open');
+                });
+
+                // Toggle current
+                if (!wasOpen) {
+                    item.classList.add('faq-open');
+                }
+            };
+        });
+    </script>
+</body>
+</html>
