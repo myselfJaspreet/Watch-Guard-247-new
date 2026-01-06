@@ -5,13 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watch Guard - 24/7 Security</title>
 
-    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link rel="shortcut icon" type="image/png" href="logo.png">
 
-    
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
@@ -83,21 +81,34 @@
         .reveal-down { transform: translateY(-40px); }
         .reveal-left { transform: translateX(-40px); }
         .reveal-right { transform: translateX(40px); }
+
+        /* Mobile Menu Link Stagger Animation */
+        .mobile-link {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-out;
+        }
+        
+        /* Class added via JS when menu opens */
+        .mobile-menu-open .mobile-link {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body class="min-h-screen bg-slate-50 text-slate-800 selection:bg-blue-100 selection:text-blue-900 overflow-x-hidden">
 
     <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 ease-in-out bg-transparent py-4 md:py-6">
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 ease-in-out bg-transparent py-4 md:py-6">
         <div class="container mx-auto px-4 md:px-6 flex justify-between items-center">
             <!-- Logo -->
-            <a href="#home" class="flex items-center gap-3 z-50 group no-underline">
-    <img src="logo.png" alt="Watch Guard Logo" class="w-12 h-12 object-contain filter drop-shadow-lg transform transition-transform group-hover:scale-110">
-    <div>
-        <h1 class="text-xl font-bold text-slate-900 leading-none tracking-tight">WATCH GUARD</h1>
-        <p class="text-[10px] font-bold text-blue-600 tracking-[0.2em] uppercase">24/7 Security</p>
-    </div>
-</a>
+            <a href="#home" class="flex items-center gap-3 z-50 group no-underline relative">
+                <img src="logo.png" alt="Watch Guard Logo" class="w-10 h-10 md:w-12 md:h-12 object-contain filter drop-shadow-lg transform transition-transform group-hover:scale-110">
+                <div>
+                    <h1 class="text-lg md:text-xl font-bold text-slate-900 leading-none tracking-tight">WATCH GUARD</h1>
+                    <p class="text-[8px] md:text-[10px] font-bold text-blue-600 tracking-[0.2em] uppercase">24/7 Security</p>
+                </div>
+            </a>
 
             <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-600">
@@ -120,21 +131,32 @@
                 </a>
             </div>
 
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="md:hidden text-slate-900 z-50 p-2">
-                <i data-lucide="menu" width="28" id="menu-icon"></i>
+            <!-- Mobile Menu Button (Improved) -->
+            <button id="mobile-menu-btn" class="md:hidden relative z-50 w-10 h-10 flex items-center justify-center text-slate-900 focus:outline-none">
+                <!-- Burger Icon (Initial State: Opacity 1, Scale 1) -->
+                <div id="icon-burger" class="absolute inset-0 flex items-center justify-center transition-all duration-300 transform scale-100 opacity-100 rotate-0">
+                    <i data-lucide="menu" width="28" height="28"></i>
+                </div>
+                <!-- Close Icon (Initial State: Opacity 0, Scale 0) -->
+                <div id="icon-close" class="absolute inset-0 flex items-center justify-center transition-all duration-300 transform scale-0 opacity-0 -rotate-90">
+                    <i data-lucide="x" width="28" height="28"></i>
+                </div>
             </button>
         </div>
 
         <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="md:hidden fixed inset-0 bg-white/95 backdrop-blur-xl z-40 transition-transform duration-500 ease-in-out translate-x-full">
+        <div id="mobile-menu" class="md:hidden fixed inset-0 bg-white/95 backdrop-blur-xl z-40 transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)] translate-x-full">
             <div class="flex flex-col items-center justify-center h-full space-y-8 p-6">
-                <a href="services.html" class="mobile-link text-2xl font-bold text-slate-800 hover:text-blue-600 transition-colors transform hover:scale-105">Services</a>
-                <a href="sectors.html" class="mobile-link text-2xl font-bold text-slate-800 hover:text-blue-600 transition-colors transform hover:scale-105">Sectors</a>
-                <a href="about.html" class="mobile-link text-2xl font-bold text-slate-800 hover:text-blue-600 transition-colors transform hover:scale-105">Technology</a>
-                <a href="about.html" class="mobile-link text-2xl font-bold text-slate-800 hover:text-blue-600 transition-colors transform hover:scale-105">About</a>
-                <a href="contact.html" class="mobile-link text-2xl font-bold text-slate-800 hover:text-blue-600 transition-colors transform hover:scale-105">Get Audit</a>
+                <!-- Links (will be staggered via JS) -->
+                <a href="services.html" class="mobile-link text-3xl font-bold text-slate-800 hover:text-blue-600 transition-colors">Services</a>
+                <a href="sectors.html" class="mobile-link text-3xl font-bold text-slate-800 hover:text-blue-600 transition-colors">Sectors</a>
+                <a href="about.html" class="mobile-link text-3xl font-bold text-slate-800 hover:text-blue-600 transition-colors">Technology</a>
+                <a href="about.html" class="mobile-link text-3xl font-bold text-slate-800 hover:text-blue-600 transition-colors">About</a>
+                <a href="contact.html" class="mobile-link text-3xl font-bold text-slate-800 hover:text-blue-600 transition-colors">Get Audit</a>
             </div>
+            
+            <!-- Optional: Decorative background element inside menu -->
+            <div class="absolute bottom-0 right-0 w-64 h-64 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 pointer-events-none"></div>
         </div>
     </nav>
 
@@ -313,7 +335,7 @@
                         <span class="text-sm font-bold text-slate-500 group-hover:text-violet-600 transition-colors">Swaraj</span>
                     </div>
 
-                     
+                      
                 </div>
             </div>
         </div>
@@ -336,75 +358,76 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Modified Mobile Grid: 2x2 Layout -->
+            <div class="grid grid-cols-2 gap-3 md:gap-6 lg:grid-cols-4">
                 <!-- Service 1 -->
                 <div class="reveal-item reveal-up h-full" style="transition-delay: 0ms;">
-                    <a href="service-live-monitoring.html" class="block h-full group bg-slate-50 hover:bg-white p-6 md:p-8 rounded-2xl border border-slate-100 hover:border-blue-100 hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 relative overflow-hidden flex flex-col cursor-pointer">
+                    <a href="service-live-monitoring.html" class="block h-full group bg-slate-50 hover:bg-white p-4 md:p-8 rounded-2xl border border-slate-100 hover:border-blue-100 shadow-sm hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 relative overflow-hidden flex flex-col cursor-pointer">
                         <div class="absolute top-0 right-0 bg-blue-600 w-16 h-16 transform translate-x-8 -translate-y-8 rotate-45 opacity-0 group-hover:opacity-10 transition-opacity"></div>
-                        <div class="w-12 h-12 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform text-blue-600 duration-500">
-                            <i data-lucide="eye" width="24"></i>
+                        <div class="w-10 h-10 md:w-12 md:h-12 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center mb-3 md:mb-6 group-hover:scale-110 transition-transform text-blue-600 duration-500">
+                            <i data-lucide="eye" class="w-5 h-5 md:w-6 md:h-6"></i>
                         </div>
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-blue-600 mb-2 block">Proactive</span>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">Live Video Monitoring</h3>
-                        <p class="text-slate-500 text-sm leading-relaxed mb-6 flex-grow">
-                            We don't just record; we watch. 24/7 real-time surveillance with instant police dispatch capabilities.
+                        <span class="text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-blue-600 mb-1 md:mb-2 block">Proactive</span>
+                        <h3 class="text-sm md:text-xl font-bold text-slate-900 mb-2 md:mb-3 group-hover:text-blue-600 transition-colors">Live Video Monitoring</h3>
+                        <p class="text-slate-500 text-xs md:text-sm leading-relaxed mb-3 md:mb-6 flex-grow">
+                            We don't just record; we watch. 24/7 real-time surveillance.
                         </p>
-                        <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 self-start group-hover:translate-x-2">
-                            <i data-lucide="chevron-right" width="16"></i>
+                        <div class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 self-start group-hover:translate-x-2">
+                            <i data-lucide="chevron-right" class="w-3 h-3 md:w-4 md:h-4"></i>
                         </div>
                     </a>
                 </div>
 
                 <!-- Service 2 -->
                 <div class="reveal-item reveal-up h-full" style="transition-delay: 150ms;">
-                    <a href="service-industrial-perimeter.html" class="block h-full group bg-slate-50 hover:bg-white p-6 md:p-8 rounded-2xl border border-slate-100 hover:border-blue-100 hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 relative overflow-hidden flex flex-col cursor-pointer">
+                    <a href="service-industrial-perimeter.html" class="block h-full group bg-slate-50 hover:bg-white p-4 md:p-8 rounded-2xl border border-slate-100 hover:border-blue-100 shadow-sm hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 relative overflow-hidden flex flex-col cursor-pointer">
                         <div class="absolute top-0 right-0 bg-blue-600 w-16 h-16 transform translate-x-8 -translate-y-8 rotate-45 opacity-0 group-hover:opacity-10 transition-opacity"></div>
-                        <div class="w-12 h-12 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform text-blue-600 duration-500">
-                            <i data-lucide="truck" width="24"></i>
+                        <div class="w-10 h-10 md:w-12 md:h-12 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center mb-3 md:mb-6 group-hover:scale-110 transition-transform text-blue-600 duration-500">
+                            <i data-lucide="truck" class="w-5 h-5 md:w-6 md:h-6"></i>
                         </div>
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-blue-600 mb-2 block">Specialized</span>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">Industrial Perimeter</h3>
-                        <p class="text-slate-500 text-sm leading-relaxed mb-6 flex-grow">
-                            Secure your truck yards and factories. Prevent fuel theft and unauthorized cargo movement.
+                        <span class="text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-blue-600 mb-1 md:mb-2 block">Specialized</span>
+                        <h3 class="text-sm md:text-xl font-bold text-slate-900 mb-2 md:mb-3 group-hover:text-blue-600 transition-colors">Industrial Perimeter</h3>
+                        <p class="text-slate-500 text-xs md:text-sm leading-relaxed mb-3 md:mb-6 flex-grow">
+                            Secure your truck yards and factories. Prevent fuel theft.
                         </p>
-                        <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 self-start group-hover:translate-x-2">
-                            <i data-lucide="chevron-right" width="16"></i>
+                        <div class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 self-start group-hover:translate-x-2">
+                            <i data-lucide="chevron-right" class="w-3 h-3 md:w-4 md:h-4"></i>
                         </div>
                     </a>
                 </div>
 
                 <!-- Service 3 -->
                 <div class="reveal-item reveal-up h-full" style="transition-delay: 300ms;">
-                    <a href="service-remote-guarding.html" class="block h-full group bg-slate-50 hover:bg-white p-6 md:p-8 rounded-2xl border border-slate-100 hover:border-blue-100 hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 relative overflow-hidden flex flex-col cursor-pointer">
+                    <a href="service-remote-guarding.html" class="block h-full group bg-slate-50 hover:bg-white p-4 md:p-8 rounded-2xl border border-slate-100 hover:border-blue-100 shadow-sm hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 relative overflow-hidden flex flex-col cursor-pointer">
                         <div class="absolute top-0 right-0 bg-blue-600 w-16 h-16 transform translate-x-8 -translate-y-8 rotate-45 opacity-0 group-hover:opacity-10 transition-opacity"></div>
-                        <div class="w-12 h-12 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform text-blue-600 duration-500">
-                            <i data-lucide="radio" width="24"></i>
+                        <div class="w-10 h-10 md:w-12 md:h-12 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center mb-3 md:mb-6 group-hover:scale-110 transition-transform text-blue-600 duration-500">
+                            <i data-lucide="radio" class="w-5 h-5 md:w-6 md:h-6"></i>
                         </div>
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-blue-600 mb-2 block">Instant</span>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">Remote Guarding</h3>
-                        <p class="text-slate-500 text-sm leading-relaxed mb-6 flex-grow">
-                            Two-way audio intervention. Our agents speak directly to intruders, stopping them in their tracks.
+                        <span class="text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-blue-600 mb-1 md:mb-2 block">Instant</span>
+                        <h3 class="text-sm md:text-xl font-bold text-slate-900 mb-2 md:mb-3 group-hover:text-blue-600 transition-colors">Remote Guarding</h3>
+                        <p class="text-slate-500 text-xs md:text-sm leading-relaxed mb-3 md:mb-6 flex-grow">
+                            Two-way audio intervention. Agents speak to intruders.
                         </p>
-                        <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 self-start group-hover:translate-x-2">
-                            <i data-lucide="chevron-right" width="16"></i>
+                        <div class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 self-start group-hover:translate-x-2">
+                            <i data-lucide="chevron-right" class="w-3 h-3 md:w-4 md:h-4"></i>
                         </div>
                     </a>
                 </div>
 
                 <!-- Service 4 -->
                 <div class="reveal-item reveal-up h-full" style="transition-delay: 450ms;">
-                    <a href="service-virtual-gate.html" class="block h-full group bg-slate-50 hover:bg-white p-6 md:p-8 rounded-2xl border border-slate-100 hover:border-blue-100 hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 relative overflow-hidden flex flex-col cursor-pointer">
+                    <a href="service-virtual-gate.html" class="block h-full group bg-slate-50 hover:bg-white p-4 md:p-8 rounded-2xl border border-slate-100 hover:border-blue-100 shadow-sm hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 relative overflow-hidden flex flex-col cursor-pointer">
                         <div class="absolute top-0 right-0 bg-blue-600 w-16 h-16 transform translate-x-8 -translate-y-8 rotate-45 opacity-0 group-hover:opacity-10 transition-opacity"></div>
-                        <div class="w-12 h-12 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform text-blue-600 duration-500">
-                            <i data-lucide="cpu" width="24"></i>
+                        <div class="w-10 h-10 md:w-12 md:h-12 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center mb-3 md:mb-6 group-hover:scale-110 transition-transform text-blue-600 duration-500">
+                            <i data-lucide="cpu" class="w-5 h-5 md:w-6 md:h-6"></i>
                         </div>
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-blue-600 mb-2 block">Smart</span>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">Virtual Gate Guard</h3>
-                        <p class="text-slate-500 text-sm leading-relaxed mb-6 flex-grow">
-                            Replace expensive sleeping guards with awake AI. Smart detection for malls, offices, and showrooms.
+                        <span class="text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-blue-600 mb-1 md:mb-2 block">Smart</span>
+                        <h3 class="text-sm md:text-xl font-bold text-slate-900 mb-2 md:mb-3 group-hover:text-blue-600 transition-colors">Virtual Gate Guard</h3>
+                        <p class="text-slate-500 text-xs md:text-sm leading-relaxed mb-3 md:mb-6 flex-grow">
+                            Replace expensive sleeping guards with awake AI.
                         </p>
-                        <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 self-start group-hover:translate-x-2">
-                            <i data-lucide="chevron-right" width="16"></i>
+                        <div class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 self-start group-hover:translate-x-2">
+                            <i data-lucide="chevron-right" class="w-3 h-3 md:w-4 md:h-4"></i>
                         </div>
                     </a>
                 </div>
@@ -731,35 +754,86 @@
         // Navbar Scroll Logic
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
+            if (isMenuOpen) return; // Don't change styles if menu is open
+
             if (window.scrollY > 50) {
-                navbar.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-md', 'border-b', 'border-slate-100', 'py-3');
+                // Apply 'sticky' active styles
+                navbar.classList.add('bg-white/80', 'backdrop-blur-md', 'shadow-lg', 'border-b', 'border-slate-100', 'py-2');
                 navbar.classList.remove('bg-transparent', 'py-4', 'md:py-6');
             } else {
-                navbar.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-md', 'border-b', 'border-slate-100', 'py-3');
+                // Revert to transparent styles
+                navbar.classList.remove('bg-white/80', 'backdrop-blur-md', 'shadow-lg', 'border-b', 'border-slate-100', 'py-2');
                 navbar.classList.add('bg-transparent', 'py-4', 'md:py-6');
             }
         });
 
-        // Mobile Menu Logic
+        // IMPROVED MOBILE MENU LOGIC
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = document.getElementById('menu-icon');
+        const iconBurger = document.getElementById('icon-burger');
+        const iconClose = document.getElementById('icon-close');
         const mobileLinks = document.querySelectorAll('.mobile-link');
         let isMenuOpen = false;
 
         function toggleMenu() {
             isMenuOpen = !isMenuOpen;
+            
             if (isMenuOpen) {
+                // Open Menu
                 mobileMenu.classList.remove('translate-x-full');
                 mobileMenu.classList.add('translate-x-0');
-                // Change icon to X (using setAttribute because it's an SVG now)
-                menuIcon.setAttribute('data-lucide', 'x');
+                
+                // Force navbar background to be solid white to blend with menu
+                navbar.classList.remove('bg-transparent', 'py-4', 'md:py-6');
+                navbar.classList.add('bg-white', 'py-2');
+
+                // Animate Icons
+                // Hide Burger: Rotate out and fade
+                iconBurger.classList.remove('opacity-100', 'rotate-0', 'scale-100');
+                iconBurger.classList.add('opacity-0', 'rotate-90', 'scale-0');
+                
+                // Show Close: Rotate in and fade
+                iconClose.classList.remove('opacity-0', '-rotate-90', 'scale-0');
+                iconClose.classList.add('opacity-100', 'rotate-0', 'scale-100');
+
+                // Stagger Links Animation
+                // We add a small delay to allow the drawer to start opening first
+                setTimeout(() => {
+                    mobileMenu.classList.add('mobile-menu-open');
+                    mobileLinks.forEach((link, index) => {
+                        link.style.transitionDelay = `${index * 100}ms`; // Stagger effect
+                    });
+                }, 100);
+
             } else {
+                // Close Menu
                 mobileMenu.classList.add('translate-x-full');
                 mobileMenu.classList.remove('translate-x-0');
-                menuIcon.setAttribute('data-lucide', 'menu');
+                mobileMenu.classList.remove('mobile-menu-open');
+
+                // Restore Navbar based on scroll position
+                if (window.scrollY > 50) {
+                    navbar.classList.add('bg-white/80', 'backdrop-blur-md', 'shadow-lg', 'border-b', 'border-slate-100', 'py-2');
+                    navbar.classList.remove('bg-white');
+                } else {
+                    navbar.classList.remove('bg-white', 'py-2');
+                    navbar.classList.add('bg-transparent', 'py-4', 'md:py-6');
+                }
+
+                // Animate Icons
+                // Show Burger
+                iconBurger.classList.add('opacity-100', 'rotate-0', 'scale-100');
+                iconBurger.classList.remove('opacity-0', 'rotate-90', 'scale-0');
+                
+                // Hide Close
+                iconClose.classList.add('opacity-0', '-rotate-90', 'scale-0');
+                iconClose.classList.remove('opacity-100', 'rotate-0', 'scale-100');
+
+                // Reset links delay so they hide instantly next time
+                mobileLinks.forEach(link => {
+                    link.style.transitionDelay = '0ms';
+                });
             }
-            lucide.createIcons(); // Re-render icon
         }
 
         mobileMenuBtn.addEventListener('click', toggleMenu);
